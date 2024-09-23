@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <span class="loader" *ngIf="loading"></span>
+      <div
+        class="blogs"
+        *ngIf="
+          fetchedData.length > 0 &&
+          blogId >= 0 &&
+          blogId < fetchedData.length &&
+          specificData
+        "
+      >
+        <header class="blogs_title">
+          <h1>{{ specificData.title }}</h1>
+          <h4>({{ specificData.description }})</h4>
+          <h5>({{ specificData.created_at | date }})</h5>
+          <img
+            class="responsive-image"
+            [src]="specificData.photo_url"
+            [alt]="specificData.description"
+          />
+        </header>
+        <div>
+          <p class="blogs_text">{{ specificData.content_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

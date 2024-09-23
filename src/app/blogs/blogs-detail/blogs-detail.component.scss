@@ -1,0 +1,39 @@
+@import "../../variables";
+
+.blogs {
+  &_title {
+    text-align: center;
+  }
+  &_text {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+}
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin-left: 50%;
+
+  border: 5px solid $color-black;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
