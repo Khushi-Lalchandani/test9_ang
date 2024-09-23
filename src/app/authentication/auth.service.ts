@@ -17,12 +17,12 @@ export class AuthService {
       'https://blog-spot-539da-default-rtdb.firebaseio.com/',
       user
     );
-    this.isLoggedIn.next(true);
+    // this.isLoggedIn.next(true);
   }
-  login() {
-    this.isLoggedIn.next(true);
-  }
-  isAuthenticated() {
-    return this.isLoggedIn.value;
-  }
+  // login() {
+  //   this.isLoggedIn.next(true);
+  // }
+  // isAuthenticated() {
+  //   return this.isLoggedIn.value;
+  // }
 }

@@ -34,7 +34,7 @@ export class BlogsComponent implements OnInit {
   }
 
   navigateTo(id: number) {
-    this.route.navigate([`blogs-detail/${id - 1}`]);
+    this.route.navigate([`blogs-detail/${id}`]);
     console.log(id);
   }
 }

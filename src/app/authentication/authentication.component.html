@@ -43,8 +43,8 @@
           <button
             class="btn btn-primary"
             type="submit"
-            (click)="onSubmit()"
             [disabled]="!form.valid"
+            (click)="onSubmit()"
           >
             {{ isLoginMode ? "Login" : "Sign Up" }}
           </button>

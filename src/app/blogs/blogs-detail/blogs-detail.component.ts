@@ -33,7 +33,7 @@ export class BlogsDetailComponent implements OnInit {
     this.blogService.fetchBlogDetail().subscribe(
       (data: detailData) => {
         this.fetchedData = data['blogs'];
-        this.specificData = this.fetchedData[this.blogId];
+        this.specificData = this.fetchedData[this.blogId - 1];
         console.log(this.specificData);
 
         this.loading = false;

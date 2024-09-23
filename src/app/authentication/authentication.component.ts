@@ -17,7 +17,6 @@ export class AuthenticationComponent implements OnInit {
     this.form = new FormGroup({
       fname: new FormControl(null, [Validators.required]),
       lname: new FormControl(null, [Validators.required]),
-
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
@@ -27,6 +26,7 @@ export class AuthenticationComponent implements OnInit {
   }
   onSubmit() {
     const value = this.form.value;
+
     if (this.isLoginMode) {
     } else {
       this.authService.signup({
