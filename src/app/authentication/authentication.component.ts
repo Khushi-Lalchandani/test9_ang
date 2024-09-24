@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService, data } from './auth.service';
+import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-authentication',
@@ -10,13 +12,17 @@ import { AuthService } from './auth.service';
 export class AuthenticationComponent implements OnInit {
   form!: FormGroup;
   isLoginMode = true;
-  constructor(private authService: AuthService) {}
+  fetched!: data[];
+  isLoggedIn: boolean = false;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
   ngOnInit(): void {
-    console.log(this.isLoginMode);
-
     this.form = new FormGroup({
-      fname: new FormControl(null, [Validators.required]),
-      lname: new FormControl(null, [Validators.required]),
+      fname: new FormControl(null),
+      lname: new FormControl(null),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required]),
     });
@@ -28,14 +34,41 @@ export class AuthenticationComponent implements OnInit {
     const value = this.form.value;
 
     if (this.isLoginMode) {
+      console.log(value);
+      this.authService
+        .login()
+        .pipe(
+          map((user) => {
+            return Object.values(user);
+          })
+        )
+        .subscribe((user) => {
+          this.fetched = user;
+
+          for (let i of user) {
+            if (value.email === i.email && value.password === i.password) {
+              this.isLoggedIn = true;
+              this.router.navigate(['/blogs'], { relativeTo: this.route });
+            }
+          }
+          console.log(this.fetched);
+        });
     } else {
-      this.authService.signup({
-        fname: value.fname,
-        lname: value.lname,
-        email: value.email,
-        password: value.password,
-      });
+      this.authService
+        .signup({
+          fname: value.fname,
+          lname: value.lname,
+          email: value.email,
+          password: value.password,
+        })
+        .subscribe(
+          (sample) => {
+            console.log(sample, 'added successfully');
+          },
+          (error) => {
+            console.log('Cannot fulfil request', error);
+          }
+        );
     }
   }
 }
-// https://blog-spot-539da-default-rtdb.firebaseio.com/

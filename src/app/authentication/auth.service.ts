@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
+export interface data {
+  fname: string;
+  lname: string;
+  email: string;
+  password: string;
+}
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) {}
 
   signup(user: {
@@ -13,16 +17,14 @@ export class AuthService {
     email: string;
     password: string;
   }) {
-    this.http.post(
-      'https://blog-spot-539da-default-rtdb.firebaseio.com/',
+    return this.http.post(
+      'https://blog-spot-539da-default-rtdb.firebaseio.com/.json',
       user
     );
-    // this.isLoggedIn.next(true);
   }
-  // login() {
-  //   this.isLoggedIn.next(true);
-  // }
-  // isAuthenticated() {
-  //   return this.isLoggedIn.value;
-  // }
+  login() {
+    return this.http.get(
+      'https://blog-spot-539da-default-rtdb.firebaseio.com/.json'
+    );
+  }
 }

@@ -9,7 +9,7 @@
         <a routerLink="/auth">Authenticate</a>
       </li>
       <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a routerLink="/logout">Logout</a>
+        <a routerLink="/logout" (click)="logout()">Logout</a>
       </li>
     </ul>
   </div>

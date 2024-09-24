@@ -27,10 +27,15 @@ export class BlogsComponent implements OnInit {
         }
       }
     );
-    this.bservice.getImages().subscribe((data: Image[]) => {
-      this.imageData = data;
-      console.log(this.imageData);
-    });
+    this.bservice.getImages().subscribe(
+      (data: Image[]) => {
+        this.imageData = data;
+        console.log(this.imageData);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
   }
 
   navigateTo(id: number) {
