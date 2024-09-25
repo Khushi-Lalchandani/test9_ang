@@ -30,14 +30,23 @@
             class="form-control"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group password-container">
           <label>Password:</label>
           <input
             formControlName="password"
-            type="password"
+            [type]="isPasswordVisible ? 'text' : 'password'"
             placeholder="Enter your Password"
             class="form-control"
           />
+          <div (click)="togglePasswordVisibility()" type="button">
+            <i
+              [ngClass]="
+                isPasswordVisible
+                  ? 'fa-solid fa-eye'
+                  : '  fa-solid fa-eye-slash'
+              "
+            ></i>
+          </div>
         </div>
         <div>
           <button

@@ -10,6 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent implements OnInit {
+  isPasswordVisible: any;
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
   form!: FormGroup;
   isLoginMode = true;
   fetched!: data[];
