@@ -11,7 +11,7 @@ import { PaginationDummyService } from './paginationDummy.service';
 })
 export class BlogsComponent implements OnInit {
   responseData: responseData[] = [];
-  imageData!: Image[];
+  imageData: Image[] = [];
   items: responseData[] = [];
   isLoading: boolean = false;
   currentPage = 1;
@@ -19,7 +19,7 @@ export class BlogsComponent implements OnInit {
 
   toggleLoading = () => (this.isLoading = !this.isLoading);
   loadData = () => {
-    this.toggleLoading;
+    this.toggleLoading();
     this.pService
       .getItems(this.currentPage, this.itemsPerPage, this.responseData)
       .subscribe({
@@ -38,11 +38,12 @@ export class BlogsComponent implements OnInit {
         next: (response) => {
           this.items = [...this.items, ...response];
         },
+        error: (err) => console.log(err),
+        complete: () => this.toggleLoading(),
       });
-    console.log(this.items);
   };
   onScroll = () => {
-    this.currentPage++;
+    this.currentPage += 1;
     this.appendData();
   };
   constructor(
@@ -56,6 +57,7 @@ export class BlogsComponent implements OnInit {
       (data) => {
         this.responseData = data;
         console.log(this.responseData);
+        this.loadData();
       },
       (error) => {
         if (error.message) {
@@ -74,7 +76,6 @@ export class BlogsComponent implements OnInit {
         console.log(error.message);
       }
     );
-    this.loadData();
   }
 
   navigateTo(id: number) {

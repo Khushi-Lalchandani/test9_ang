@@ -1,22 +1,23 @@
-<div class="container">
-  <div class="row" *ngIf="error">
-    <h1>{{ error }}</h1>
-  </div>
-  <div
-    class="search-results"
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="500"
-    (scrolled)="onScroll()"
-    [scrollWindow]="false"
-  >
+<div class="row" *ngIf="error">
+  <h1>{{ error }}</h1>
+</div>
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+  style="height: 100vh; overflow-y: scroll; overflow-x: hidden"
+>
+  <div class="container">
     <div class="row" *ngIf="!error">
       <div class="col-xs-12 col-lg-9">
         <h1>Blogs</h1>
 
         <div
           class="card"
-          *ngFor="let data of responseData"
+          *ngFor="let data of items"
           (click)="navigateTo(data.id)"
         >
           <div>
@@ -76,4 +77,5 @@
       </div>
     </div>
   </div>
+  <!-- </div> -->
 </div>

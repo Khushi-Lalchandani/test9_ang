@@ -11,7 +11,7 @@ export class PaginationDummyService {
     array: responseData[]
   ): Observable<responseData[]> {
     const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
     const items: responseData[] = [];
     for (let i = startIndex; i < endIndex; i++) {
       if (i < this.totalItems) {
