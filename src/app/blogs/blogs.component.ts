@@ -56,7 +56,7 @@ export class BlogsComponent implements OnInit {
     this.bservice.fetchData().subscribe(
       (data) => {
         this.responseData = data;
-        console.log(this.responseData);
+
         this.loadData();
       },
       (error) => {
@@ -70,7 +70,6 @@ export class BlogsComponent implements OnInit {
     this.bservice.getImages().subscribe(
       (data: Image[]) => {
         this.imageData = data;
-        console.log(this.imageData);
       },
       (error) => {
         console.log(error.message);
@@ -80,6 +79,5 @@ export class BlogsComponent implements OnInit {
 
   navigateTo(id: number) {
     this.route.navigate([`blogs-detail/${id}`]);
-    console.log(id);
   }
 }

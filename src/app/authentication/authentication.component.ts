@@ -38,7 +38,6 @@ export class AuthenticationComponent implements OnInit {
     const value = this.form.value;
 
     if (this.isLoginMode) {
-      console.log(value);
       this.authService
         .login()
         .pipe(
@@ -55,7 +54,6 @@ export class AuthenticationComponent implements OnInit {
               this.router.navigate(['/blogs'], { relativeTo: this.route });
             }
           }
-          console.log(this.fetched);
         });
     } else {
       this.authService

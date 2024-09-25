@@ -34,7 +34,6 @@ export class BlogsDetailComponent implements OnInit {
       (data: detailData) => {
         this.fetchedData = data['blogs'];
         this.specificData = this.fetchedData[this.blogId - 1];
-        console.log(this.specificData);
 
         this.loading = false;
       },
