@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { BlogsComponent } from './blogs/blogs.component';
 import { BlogsDetailComponent } from './blogs/blogs-detail/blogs-detail.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { BlogsDetailComponent } from './blogs/blogs-detail/blogs-detail.componen
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    InfiniteScrollModule,
     AppRoutingModule,
     RouterModule,
   ],

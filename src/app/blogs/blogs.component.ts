@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Blog, BlogsService, Image, responseData } from './blogs.service';
 
 import { Router } from '@angular/router';
+import { PaginationDummyService } from './paginationDummy.service';
 
 @Component({
   selector: 'app-blogs',
@@ -11,7 +12,44 @@ import { Router } from '@angular/router';
 export class BlogsComponent implements OnInit {
   responseData: responseData[] = [];
   imageData!: Image[];
-  constructor(private bservice: BlogsService, private route: Router) {}
+  items: responseData[] = [];
+  isLoading: boolean = false;
+  currentPage = 1;
+  itemsPerPage = 10;
+
+  toggleLoading = () => (this.isLoading = !this.isLoading);
+  loadData = () => {
+    this.toggleLoading;
+    this.pService
+      .getItems(this.currentPage, this.itemsPerPage, this.responseData)
+      .subscribe({
+        next: (response) => {
+          this.items = response;
+        },
+        error: (err) => console.log(err),
+        complete: () => this.toggleLoading(),
+      });
+  };
+  appendData = () => {
+    this.toggleLoading();
+    this.pService
+      .getItems(this.currentPage, this.itemsPerPage, this.responseData)
+      .subscribe({
+        next: (response) => {
+          this.items = [...this.items, ...response];
+        },
+      });
+    console.log(this.items);
+  };
+  onScroll = () => {
+    this.currentPage++;
+    this.appendData();
+  };
+  constructor(
+    private bservice: BlogsService,
+    private route: Router,
+    private pService: PaginationDummyService
+  ) {}
   error!: string;
   ngOnInit(): void {
     this.bservice.fetchData().subscribe(
@@ -36,6 +74,7 @@ export class BlogsComponent implements OnInit {
         console.log(error.message);
       }
     );
+    this.loadData();
   }
 
   navigateTo(id: number) {
