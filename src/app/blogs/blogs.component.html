@@ -17,14 +17,13 @@
 
         <div
           class="card"
-          *ngFor="let data of items"
+          *ngFor="let data of items; let i = index"
           (click)="navigateTo(data.id)"
         >
-          <div>
+          <div *ngIf="fetchedData.length > 0">
             <img
               class="responsive-image image"
-              [src]="imageData[data.id].download_url"
-              [alt]="imageData[data.id].url"
+              [src]="fetchedData[i].photo_url"
             />
           </div>
           <div>

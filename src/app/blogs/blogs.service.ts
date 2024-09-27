@@ -56,9 +56,4 @@ export class BlogsService {
       `https://api.slingacademy.com/v1/sample-data/blog-posts/${id}`
     );
   }
-  getImages() {
-    return this.http.get<Image[]>(
-      `https://picsum.photos/v2/list?page=2&limit=100`
-    );
-  }
 }

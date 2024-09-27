@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog, BlogsService, Image, responseData } from './blogs.service';
+import {
+  Blog,
+  BlogsService,
+  detailData,
+  Image,
+  responseData,
+} from './blogs.service';
 
 import { Router } from '@angular/router';
 import { PaginationDummyService } from './paginationDummy.service';
@@ -11,11 +17,11 @@ import { PaginationDummyService } from './paginationDummy.service';
 })
 export class BlogsComponent implements OnInit {
   responseData: responseData[] = [];
-  imageData: Image[] = [];
   items: responseData[] = [];
   isLoading: boolean = false;
   currentPage = 1;
   itemsPerPage = 10;
+  fetchedData: Blog[] = [];
 
   toggleLoading = () => (this.isLoading = !this.isLoading);
   loadData = () => {
@@ -52,11 +58,20 @@ export class BlogsComponent implements OnInit {
     private pService: PaginationDummyService
   ) {}
   error!: string;
+
   ngOnInit(): void {
+    this.bservice.fetchBlogDetail().subscribe(
+      (data: detailData) => {
+        this.fetchedData = data['blogs'];
+        console.log(this.fetchedData);
+      },
+      (error) => {
+        console.log('Error fetching data', error);
+      }
+    );
     this.bservice.fetchData().subscribe(
       (data) => {
         this.responseData = data;
-
         this.loadData();
       },
       (error) => {
@@ -65,14 +80,6 @@ export class BlogsComponent implements OnInit {
         } else {
           this.error = 'An unknown error occurred';
         }
-      }
-    );
-    this.bservice.getImages().subscribe(
-      (data: Image[]) => {
-        this.imageData = data;
-      },
-      (error) => {
-        console.log(error.message);
       }
     );
   }

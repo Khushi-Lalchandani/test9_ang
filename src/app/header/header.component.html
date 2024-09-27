@@ -4,10 +4,7 @@
       <a href="#" class="navbar-brand">Blogs Spot</a>
     </div>
 
-    <ul class="nav navbar-nav">
-      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <a routerLink="/auth">Authenticate</a>
-      </li>
+    <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a routerLink="/logout" (click)="logout()">Logout</a>
       </li>
