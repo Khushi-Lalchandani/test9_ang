@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface data {
   fname: string;
@@ -9,6 +10,8 @@ export interface data {
 }
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  authenticated = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient) {}
 
   signup(user: {

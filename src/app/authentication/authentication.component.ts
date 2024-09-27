@@ -51,7 +51,13 @@ export class AuthenticationComponent implements OnInit {
           for (let i of user) {
             if (value.email === i.email && value.password === i.password) {
               this.isLoggedIn = true;
-              this.router.navigate(['/blogs'], { relativeTo: this.route });
+              this.authService.authenticated.next(true);
+              if (this.authService.authenticated.value) {
+                this.router.navigate(['/blogs'], { relativeTo: this.route });
+              }
+            } else {
+              alert('Incorrect Email/Password');
+              break;
             }
           }
         });
