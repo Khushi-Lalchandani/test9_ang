@@ -55,9 +55,6 @@ export class AuthenticationComponent implements OnInit {
               if (this.authService.authenticated.value) {
                 this.router.navigate(['/blogs'], { relativeTo: this.route });
               }
-            } else {
-              alert('Incorrect Email/Password');
-              break;
             }
           }
         });
