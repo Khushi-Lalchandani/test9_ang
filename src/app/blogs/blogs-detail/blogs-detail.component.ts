@@ -1,13 +1,14 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { Blog, BlogsService, detailData } from '../blogs.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
@@ -16,31 +17,33 @@ import { BehaviorSubject, Subject } from 'rxjs';
   styleUrls: ['./blogs-detail.component.scss'],
 })
 export class BlogsDetailComponent implements OnInit {
-  fetchedData: Blog[] = [];
+  fetchedData: any | Blog[] = [];
   blogId!: number;
-  specificData!: any | Blog[];
 
   loading: boolean = true;
   constructor(
     private blogService: BlogsService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     this.router.paramMap.subscribe((params) => {
       this.blogId = Number(params.get('id'));
     });
-    this.blogService.fetchBlogDetail().subscribe(
-      (data: detailData) => {
-        this.fetchedData = data['blogs'];
-        this.specificData = this.fetchedData[this.blogId - 1];
 
+    this.blogService.getDataById(this.blogId).subscribe(
+      (data: any) => {
+        this.fetchedData = data['blog'];
         this.loading = false;
       },
       (error) => {
         this.loading = true;
-        console.log('Error fetching data', error);
+        alert(error);
       }
     );
+  }
+  back() {
+    this.route.navigate(['/blogs']);
   }
 }

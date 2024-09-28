@@ -10,8 +10,6 @@ export interface data {
 }
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  authenticated = new BehaviorSubject<boolean>(false);
-
   constructor(private http: HttpClient) {}
 
   signup(user: {

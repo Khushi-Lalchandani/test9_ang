@@ -1,14 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  Blog,
-  BlogsService,
-  detailData,
-  Image,
-  responseData,
-} from './blogs.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Blog, BlogsService, detailData } from './blogs.service';
 
-import { Router } from '@angular/router';
-import { PaginationDummyService } from './paginationDummy.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blogs',
@@ -16,46 +9,18 @@ import { PaginationDummyService } from './paginationDummy.service';
   styleUrls: ['./blogs.component.scss'],
 })
 export class BlogsComponent implements OnInit {
-  responseData: responseData[] = [];
-  items: responseData[] = [];
-  isLoading: boolean = false;
-  currentPage = 1;
-  itemsPerPage = 10;
   fetchedData: Blog[] = [];
 
-  toggleLoading = () => (this.isLoading = !this.isLoading);
-  loadData = () => {
-    this.toggleLoading();
-    this.pService
-      .getItems(this.currentPage, this.itemsPerPage, this.responseData)
-      .subscribe({
-        next: (response) => {
-          this.items = response;
-        },
-        error: (err) => console.log(err),
-        complete: () => this.toggleLoading(),
-      });
-  };
-  appendData = () => {
-    this.toggleLoading();
-    this.pService
-      .getItems(this.currentPage, this.itemsPerPage, this.responseData)
-      .subscribe({
-        next: (response) => {
-          this.items = [...this.items, ...response];
-        },
-        error: (err) => console.log(err),
-        complete: () => this.toggleLoading(),
-      });
-  };
   onScroll = () => {
-    this.currentPage += 1;
-    this.appendData();
+    const offset = this.fetchedData[this.fetchedData.length - 1].id;
+    this.bservice.fetchBlogDetail(offset).subscribe((data: detailData) => {
+      this.fetchedData = [...this.fetchedData, ...data['blogs']];
+    });
   };
   constructor(
     private bservice: BlogsService,
     private route: Router,
-    private pService: PaginationDummyService
+    private router: ActivatedRoute
   ) {}
   error!: string;
 
@@ -63,23 +28,9 @@ export class BlogsComponent implements OnInit {
     this.bservice.fetchBlogDetail().subscribe(
       (data: detailData) => {
         this.fetchedData = data['blogs'];
-        console.log(this.fetchedData);
       },
       (error) => {
         console.log('Error fetching data', error);
-      }
-    );
-    this.bservice.fetchData().subscribe(
-      (data) => {
-        this.responseData = data;
-        this.loadData();
-      },
-      (error) => {
-        if (error.message) {
-          this.error = error.message;
-        } else {
-          this.error = 'An unknown error occurred';
-        }
       }
     );
   }
