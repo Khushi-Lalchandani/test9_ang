@@ -1,10 +1,20 @@
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="#" class="navbar-brand">Blogs Spot</a>
+  <div
+    style="
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    "
+  >
+    <div>
+      <a href="#" style="font-size: 1.8rem; color: #777; text-decoration: none"
+        >Blogs Spot</a
+      >
     </div>
 
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav">
       <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a routerLink="/logout" (click)="logout()">Logout</a>
       </li>

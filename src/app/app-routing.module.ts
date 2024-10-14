@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BlogsComponent } from './blogs/blogs.component';
 
 import { BlogsDetailComponent } from './blogs/blogs-detail/blogs-detail.component';
+import { AuthGuard } from './authentication/auth.guard';
 
 const appRoutes: Route[] = [
   {
@@ -19,6 +20,7 @@ const appRoutes: Route[] = [
 
   {
     path: 'blogs',
+    canActivate: [AuthGuard],
     component: BlogsComponent,
   },
   {

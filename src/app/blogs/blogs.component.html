@@ -14,62 +14,63 @@
     <div class="row" *ngIf="!error">
       <div class="col-xs-12">
         <h1>Blogs</h1>
-
-        <div
-          class="card"
-          *ngFor="let data of fetchedData; let i = index"
-          (click)="navigateTo(data.id)"
-        >
-          <div *ngIf="fetchedData.length > 0">
-            <img
-              class="responsive-image image"
-              [src]="fetchedData[i].photo_url"
-            />
-          </div>
-          <div>
-            <h4 class="card_title">{{ data.title }}</h4>
-            <p class="card_content">{{ data.description }}</p>
-            <div class="card_flex">
+        <div class="card_container">
+          <div
+            class="card"
+            *ngFor="let data of fetchedData; let i = index"
+            (click)="navigateTo(data.id)"
+          >
+            <div *ngIf="fetchedData.length > 0">
               <img
-                src="../../assets/imgs/eye.png"
-                alt="Seen"
-                class="card_icon"
-                style="margin-top: 0.3rem"
-              />
-              <img
-                src="../../assets/imgs/like.png"
-                alt="Like"
-                class="card_icon"
-                style="margin-bottom: 0.3rem"
-              />
-              <img
-                src="../../assets/imgs/chat-bubble.png"
-                alt="Comment"
-                class="card_icon"
+                class="responsive-image image"
+                [src]="fetchedData[i].photo_url"
               />
             </div>
+            <div>
+              <h4 class="card_title">{{ data.title }}</h4>
+              <p class="card_content">{{ data.description }}</p>
+              <div class="card_flex">
+                <img
+                  src="../../assets/imgs/eye.png"
+                  alt="Seen"
+                  class="card_icon"
+                  style="margin-top: 0.3rem"
+                />
+                <img
+                  src="../../assets/imgs/like.png"
+                  alt="Like"
+                  class="card_icon"
+                  style="margin-bottom: 0.3rem"
+                />
+                <img
+                  src="../../assets/imgs/chat-bubble.png"
+                  alt="Comment"
+                  class="card_icon"
+                />
+              </div>
 
-            <div class="card_flex">
-              <img
-                src="../../assets/imgs/share.png"
-                alt="Share icon"
-                class="card_icon"
-              />
-              <img
-                src="../../assets/imgs/facebook.png"
-                alt="Facebook icon"
-                class="card_icon1"
-              />
-              <img
-                src="../../assets/imgs/twitter.png"
-                alt="Twitter icon"
-                class="card_icon1"
-              />
-              <img
-                src="../../assets/imgs/whatsapp.png"
-                alt="Whatsapp icon"
-                class="card_icon1"
-              />
+              <div class="card_flex">
+                <img
+                  src="../../assets/imgs/share.png"
+                  alt="Share icon"
+                  class="card_icon"
+                />
+                <img
+                  src="../../assets/imgs/facebook.png"
+                  alt="Facebook icon"
+                  class="card_icon1"
+                />
+                <img
+                  src="../../assets/imgs/twitter.png"
+                  alt="Twitter icon"
+                  class="card_icon1"
+                />
+                <img
+                  src="../../assets/imgs/whatsapp.png"
+                  alt="Whatsapp icon"
+                  class="card_icon1"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -46,12 +46,14 @@ export class AuthenticationComponent implements OnInit {
           })
         )
         .subscribe((user) => {
-          this.fetched = user;
-
-          for (let i of user) {
-            if (value.email === i.email && value.password === i.password) {
-              this.router.navigate(['/blogs'], { relativeTo: this.route });
-            }
+          this.fetched = user.find(
+            (i) => value.email === i.email && value.password === i.password
+          );
+          if (this.fetched) {
+            this.authService.loggedIn = true;
+            this.router.navigate(['/blogs'], { relativeTo: this.route });
+          } else {
+            alert('Invalid id/password');
           }
         });
     } else {

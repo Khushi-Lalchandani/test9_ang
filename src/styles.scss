@@ -2,6 +2,10 @@
 @import "app/variables";
 html {
   font-size: 62.5%;
+
+  @media screen and (max-width: 62.5em) {
+    font-size: 50%;
+  }
 }
 body::-webkit-scrollbar {
   display: none;
