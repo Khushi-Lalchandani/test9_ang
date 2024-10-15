@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Blog, BlogsService, detailData } from './blogs.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./blogs.component.scss'],
 })
 export class BlogsComponent implements OnInit {
-  fetchedData: Blog[] = [];
+  fetchedData!: Blog[];
 
   onScroll = () => {
     const offset = this.fetchedData[this.fetchedData.length - 1].id;

@@ -56,6 +56,22 @@ export class AuthenticationComponent implements OnInit {
             alert('Invalid id/password');
           }
         });
+
+      // this.authService
+      //   .logInFirebase({
+      //     email: value.email,
+      //     password: value.password,
+      //     returnSecureToken: true,
+      //   })
+      //   .subscribe(
+      //     (data) => {
+      //       console.log(data);
+      //       this.router.navigate(['/blogs']);
+      //     },
+      //     (error) => {
+      //       this.router.navigate(['/auth']);
+      //     }
+      //   );
     } else {
       this.authService
         .signup({
@@ -72,6 +88,14 @@ export class AuthenticationComponent implements OnInit {
             console.log('Cannot fulfil request', error);
           }
         );
+      this.authService
+        .signUpFirebase({
+          email: value.email,
+          password: value.password,
+        })
+        .subscribe((data) => {
+          console.log(data);
+        });
     }
   }
 }

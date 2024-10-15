@@ -8,6 +8,12 @@ export interface data {
   email: string;
   password: string;
 }
+
+export interface responseData {
+  email: string;
+  password: string;
+  returnSecureToken: boolean;
+}
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   loggedIn: boolean = this.lStorage();
@@ -48,5 +54,23 @@ export class AuthService {
   logout() {
     this.loggedIn = false;
     localStorage.removeItem('isLoggedIn');
+  }
+
+  signUpFirebase(user: { email: string; password: string }) {
+    return this.http.post(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBeBysRqu5nJa_wSdI1OHFiXcN15dSBjZo',
+      user
+    );
+  }
+
+  logInFirebase(user: {
+    email: string;
+    password: string;
+    returnSecureToken: true;
+  }) {
+    return this.http.post<responseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBeBysRqu5nJa_wSdI1OHFiXcN15dSBjZo',
+      user
+    );
   }
 }

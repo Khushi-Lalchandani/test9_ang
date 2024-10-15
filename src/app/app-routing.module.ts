@@ -20,8 +20,8 @@ const appRoutes: Route[] = [
 
   {
     path: 'blogs',
-    canActivate: [AuthGuard],
     component: BlogsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'blogs-detail/:id',
