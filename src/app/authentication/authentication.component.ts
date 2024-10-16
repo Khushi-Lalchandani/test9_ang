@@ -75,9 +75,8 @@ export class AuthenticationComponent implements OnInit {
                 password: value.password,
               })
               .subscribe((sample) => {
-                const userData = { fname: value.fname, lname: value.lname };
-                localStorage.setItem('userName', JSON.stringify(userData));
                 console.log(sample, 'added successfully');
+                window.location.reload();
               });
           },
           (error) => {

@@ -62,8 +62,6 @@ export class AuthService {
       )
       .pipe(
         map((response) => {
-          this.loggedIn = true;
-          this.isAuthenticated();
           const expiresIn = 3600000;
 
           this.tokenExpirationTimer = setTimeout(() => {
