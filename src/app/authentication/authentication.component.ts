@@ -17,6 +17,7 @@ export class AuthenticationComponent implements OnInit {
   form!: FormGroup;
   isLoginMode = true;
   fetched!: data[];
+  error!: string;
 
   constructor(
     private authService: AuthService,
@@ -35,67 +36,58 @@ export class AuthenticationComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
   onSubmit() {
+    console.log(this.form);
     const value = this.form.value;
 
     if (this.isLoginMode) {
       this.authService
-        .login()
-        .pipe(
-          map((user) => {
-            return Object.values(user);
-          })
-        )
-        .subscribe((user) => {
-          this.fetched = user.find(
-            (i) => value.email === i.email && value.password === i.password
-          );
-          if (this.fetched) {
-            this.authService.loggedIn = true;
-            this.router.navigate(['/blogs'], { relativeTo: this.route });
-          } else {
-            alert('Invalid id/password');
-          }
-        });
-
-      // this.authService
-      //   .logInFirebase({
-      //     email: value.email,
-      //     password: value.password,
-      //     returnSecureToken: true,
-      //   })
-      //   .subscribe(
-      //     (data) => {
-      //       console.log(data);
-      //       this.router.navigate(['/blogs']);
-      //     },
-      //     (error) => {
-      //       this.router.navigate(['/auth']);
-      //     }
-      //   );
-    } else {
-      this.authService
-        .signup({
-          fname: value.fname,
-          lname: value.lname,
+        .logInFirebase({
           email: value.email,
           password: value.password,
         })
+
         .subscribe(
-          (sample) => {
-            console.log(sample, 'added successfully');
+          (data) => {
+            console.log(data);
+            this.error = '';
+            this.authService.loggedIn = true;
+            this.router.navigate(['/blogs']);
           },
           (error) => {
-            console.log('Cannot fulfil request', error);
+            this.error = error.error.error.message;
+            this.router.navigate(['/auth']);
+            console.log(error);
           }
         );
+    } else {
       this.authService
         .signUpFirebase({
           email: value.email,
           password: value.password,
         })
-        .subscribe((data) => {
-          console.log(data);
-        });
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.error = '';
+          },
+          (error) => {
+            this.error = error.error.error.message;
+            console.log(this.error);
+          }
+        );
+      if (this.error === '') {
+        console.log(this.error);
+        this.authService
+          .signup({
+            fname: value.fname,
+            lname: value.lname,
+            email: value.email,
+            password: value.password,
+          })
+          .subscribe((sample) => {
+            console.log(sample, 'added successfully');
+          });
+      }
     }
   }
 }

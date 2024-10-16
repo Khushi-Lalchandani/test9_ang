@@ -11,6 +11,12 @@
             class="form-control"
           />
         </div>
+        <p
+          class="help-group"
+          *ngIf="!form.get('fname')?.valid && form.get('fname')?.touched"
+        >
+          Enter valid first name
+        </p>
 
         <div class="form-group" *ngIf="!isLoginMode">
           <label>Last Name:</label>
@@ -21,6 +27,12 @@
             class="form-control"
           />
         </div>
+        <p
+          class="help-group"
+          *ngIf="form.get('lname')?.touched && !form.get('lname')?.valid"
+        >
+          Enter valid last name
+        </p>
         <div class="form-group">
           <label>Email:</label>
           <input
@@ -30,6 +42,12 @@
             class="form-control"
           />
         </div>
+        <p
+          class="help-group"
+          *ngIf="form.get('email')?.touched && !form.get('email')?.valid"
+        >
+          Enter valid email
+        </p>
         <div class="form-group password-container">
           <label>Password:</label>
           <input
@@ -48,6 +66,14 @@
             ></i>
           </div>
         </div>
+        <div
+          class="help-group"
+          *ngIf="error"
+          style="font-size: 1.2rem; color: red"
+        >
+          {{ error }}
+        </div>
+        <hr />
         <div>
           <button
             class="btn btn-primary"
