@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Blog, BlogsService, detailData } from './blogs.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,11 +17,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class BlogsComponent implements OnInit {
   fetchedData!: Blog[];
 
-  onScroll = () => {
-    const offset = this.fetchedData[this.fetchedData.length - 1].id;
-    this.bservice.fetchBlogDetail(offset).subscribe((data: detailData) => {
-      this.fetchedData = [...this.fetchedData, ...data['blogs']];
-    });
+  onScroll = (event: any) => {
+    if (
+      event.target.scrollTop + event.target.clientHeight >=
+      event.target.scrollHeight - 10
+    ) {
+      const offset = this.fetchedData[this.fetchedData.length - 1].id;
+      this.bservice.fetchBlogDetail(offset).subscribe(
+        (data: detailData) => {
+          this.fetchedData = [...this.fetchedData, ...data['blogs']];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   };
   constructor(
     private bservice: BlogsService,

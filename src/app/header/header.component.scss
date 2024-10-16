@@ -1,0 +1,33 @@
+.styling {
+  color: #777;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: linear-gradient(to right, #777, #ddd);
+  display: inline-block;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.animation {
+  animation: animate ease-in 0.8s;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}

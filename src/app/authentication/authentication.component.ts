@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, data } from './auth.service';
 import { map } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-authentication',
@@ -48,7 +49,6 @@ export class AuthenticationComponent implements OnInit {
 
         .subscribe(
           (data) => {
-            console.log(data);
             this.error = '';
             this.authService.loggedIn = true;
             this.router.navigate(['/blogs']);
@@ -67,27 +67,27 @@ export class AuthenticationComponent implements OnInit {
         })
         .subscribe(
           (data) => {
-            console.log(data);
-            this.error = '';
+            this.authService
+              .signup({
+                fname: value.fname,
+                lname: value.lname,
+                email: value.email,
+                password: value.password,
+              })
+              .subscribe((sample) => {
+                const userData = { fname: value.fname, lname: value.lname };
+                localStorage.setItem('userName', JSON.stringify(userData));
+                console.log(sample, 'added successfully');
+              });
           },
           (error) => {
-            this.error = error.error.error.message;
-            console.log(this.error);
+            if (error) {
+              this.error = error.error.error.message;
+              console.log(this.error);
+            }
           }
         );
-      if (this.error === '') {
-        console.log(this.error);
-        this.authService
-          .signup({
-            fname: value.fname,
-            lname: value.lname,
-            email: value.email,
-            password: value.password,
-          })
-          .subscribe((sample) => {
-            console.log(sample, 'added successfully');
-          });
-      }
     }
+    this.form.reset();
   }
 }

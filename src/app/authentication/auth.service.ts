@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { BehaviorSubject, map } from 'rxjs';
 
 export interface data {
   fname: string;
@@ -13,6 +13,7 @@ export interface data {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   loggedIn: boolean = this.lStorage();
+  dataToCompare = new BehaviorSubject({});
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -23,6 +24,7 @@ export class AuthService {
     email: string;
     password: string;
   }) {
+    this.dataToCompare.next(user);
     return this.http.post(
       'https://blog-spot-539da-default-rtdb.firebaseio.com/.json',
       user
@@ -51,6 +53,8 @@ export class AuthService {
   }
 
   logInFirebase(user: { email: string; password: string }) {
+    this.dataToCompare.next(user);
+
     return this.http
       .post(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBeBysRqu5nJa_wSdI1OHFiXcN15dSBjZo',
@@ -58,13 +62,20 @@ export class AuthService {
       )
       .pipe(
         map((response) => {
+          this.loggedIn = true;
+          this.isAuthenticated();
           const expiresIn = 3600000;
-          // console.log(expiresIn);
+
           this.tokenExpirationTimer = setTimeout(() => {
             this.logout();
           }, expiresIn);
           return response;
         })
       );
+  }
+  fetchUserDetails() {
+    return this.http.get(
+      'https://blog-spot-539da-default-rtdb.firebaseio.com/.json'
+    );
   }
 }
