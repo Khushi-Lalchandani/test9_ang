@@ -1,5 +1,4 @@
 .styling {
-  color: #777;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
@@ -9,9 +8,23 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+
+  &:hover {
+    background-image: linear-gradient(to right, #ddd, #777);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
+
 .animation {
   animation: animate ease-in 0.8s;
+  margin: 0;
+  font-size: 1.8rem;
+  color: #fff;
+  padding-right: 1rem;
+  border-right: 1px solid #fff;
 }
 
 @keyframes animate {
@@ -29,5 +42,49 @@
   }
   100% {
     opacity: 1;
+  }
+}
+.flex {
+  display: flex;
+  align-items: center;
+
+  gap: 1.6rem;
+}
+.flex1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  background: #092756;
+
+  background: -webkit-radial-gradient(
+      0% 100%,
+      ellipse cover,
+      rgba(104, 128, 138, 0.4) 10%,
+      rgba(138, 114, 76, 0) 40%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(57, 173, 219, 0.25) 0%,
+      rgba(42, 60, 87, 0.4) 100%
+    ),
+    linear-gradient(135deg, #670d10 0%, #092756 100%);
+}
+.icon {
+  height: 3.6rem;
+  width: 3.6rem;
+  border-radius: 50%;
+}
+
+.navbar-nav > li > a {
+  color: #fff;
+  font-size: 1.4rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  &:hover {
+    color: #ddd;
   }
 }

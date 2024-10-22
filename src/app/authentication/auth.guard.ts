@@ -23,9 +23,11 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     const isAuthenticated = this.authService.isAuthenticated();
-    if (!isAuthenticated) {
+    if (isAuthenticated) {
+      return true;
+    } else {
       this.authService.logout();
+      return false;
     }
-    return isAuthenticated;
   }
 }

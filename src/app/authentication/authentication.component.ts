@@ -37,7 +37,6 @@ export class AuthenticationComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
   onSubmit() {
-    console.log(this.form);
     const value = this.form.value;
 
     if (this.isLoginMode) {

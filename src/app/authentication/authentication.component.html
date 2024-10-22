@@ -1,22 +1,9 @@
-<div class="container">
+<div class="container login">
   <div class="row">
-    <div
-      class="col-md-6 col-xs-11"
-      style="
-        margin: 2rem;
-        padding: 2rem;
-        border: 1px solid #eef;
-        border-radius: 10px;
-        background-color: #eef;
-        background-image: url(../../assets/imgs/cover.jpg);
-        background-size: cover;
-        background-position: bottom;
-        box-shadow: 10px 10px 16px 10px rgba(218, 123, 218, 0.2);
-      "
-    >
+    <div class="col-md-6 col-xs-11 auth">
       <form [formGroup]="form">
         <div class="form-group" *ngIf="!isLoginMode">
-          <label style="color: #fff; font-weight: bold">First Name:</label>
+          <label>First Name:</label>
           <input
             formControlName="fname"
             type="text"
@@ -24,10 +11,9 @@
             class="form-control"
           />
         </div>
-        <!-- <p class="help-group">Enter valid first name</p> -->
 
         <div class="form-group" *ngIf="!isLoginMode">
-          <label style="color: #fff; font-weight: bold">Last Name:</label>
+          <label>Last Name:</label>
           <input
             formControlName="lname"
             type="text"
@@ -35,9 +21,9 @@
             class="form-control"
           />
         </div>
-        <!-- <p class="help-group">Enter valid last name</p> -->
+
         <div class="form-group">
-          <label style="color: #fff; font-weight: bold">Email:</label>
+          <label>Email:</label>
           <input
             formControlName="email"
             type="email"
@@ -47,13 +33,12 @@
         </div>
         <p
           class="help-group"
-          style="color: red; font-weight: bold; letter-spacing: 1px"
           *ngIf="form.get('email')?.touched && !form.get('email')?.valid"
         >
           Enter email
         </p>
         <div class="form-group password-container">
-          <label style="color: #fff; font-weight: bold">Password:</label>
+          <label>Password:</label>
           <input
             formControlName="password"
             [type]="isPasswordVisible ? 'text' : 'password'"
@@ -72,16 +57,11 @@
         </div>
         <p
           class="help-group"
-          style="color: red; font-weight: bold; letter-spacing: 1px"
           *ngIf="form.get('password')?.touched && !form.get('password')?.valid"
         >
           Enter password
         </p>
-        <div
-          class="help-group"
-          *ngIf="error"
-          style="font-size: 1.2rem; color: red"
-        >
+        <div class="help-group" *ngIf="error">
           {{ error }}
         </div>
         <hr />

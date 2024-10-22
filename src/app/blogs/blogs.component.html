@@ -1,11 +1,7 @@
 <div class="row" *ngIf="error">
   <h1>{{ error }}</h1>
 </div>
-<div
-  class="search-results"
-  (scroll)="onScroll($event)"
-  style="height: 100vh; overflow-y: scroll; overflow-x: hidden"
->
+<div class="search-results" (scroll)="onScroll($event)">
   <div style="padding: 0 5rem">
     <div class="row" *ngIf="!error">
       <h1>Blogs</h1>

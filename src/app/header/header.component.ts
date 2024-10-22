@@ -23,9 +23,9 @@ export class HeaderComponent implements OnInit {
 
     this.authService.dataToCompare.subscribe((data) => {
       this.data = data;
-      console.log(this.compare, this.data);
+      // console.log(this.compare, this.data);
       this.compare.forEach((i: any) => {
-        console.log(Object.keys(i));
+        // console.log(Object.keys(i));
         const keys = Object.keys(i);
 
         keys.forEach((key) => {

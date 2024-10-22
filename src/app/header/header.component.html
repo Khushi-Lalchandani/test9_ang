@@ -1,43 +1,11 @@
-<nav class="navbar navbar-default bg-light" style="width: 100%">
-  <div
-    style="
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 2rem;
-      background-image: url(../../assets/imgs/cover.jpg);
-
-      background-size: cover;
-    "
-  >
+<nav class="navbar navbar-default" style="width: 100%">
+  <div class="flex1">
     <div>
       <a href="#" class="styling" style="font-size: 1.8rem">Blogs Spot</a>
     </div>
-    <div
-      style="
-        display: flex;
-        align-items: center;
-
-        gap: 1.6rem;
-      "
-    >
-      <img
-        src="../../assets/imgs/user.avif"
-        alt="User icon"
-        style="height: 3.6rem; width: 3.6rem; border-radius: 50%"
-      />
-      <p
-        *ngIf="name.fname !== '' && name.lname !== ''"
-        class="animation"
-        style="
-          margin: 0;
-          font-size: 1.8rem;
-          color: #fff;
-          padding-right: 1rem;
-          border-right: 1px solid #fff;
-        "
-      >
+    <div class="flex">
+      <img src="../../assets/imgs/user.avif" alt="User icon" class="icon" />
+      <p *ngIf="name.fname !== '' && name.lname !== ''" class="animation">
         {{ name.fname }} {{ name.lname }}
       </p>
       <ul class="nav navbar-nav">
@@ -45,13 +13,7 @@
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          <a
-            class="styling"
-            style="font-size: 1.4rem"
-            routerLink="/logout"
-            (click)="logout()"
-            >Logout</a
-          >
+          <a routerLink="/logout" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>
