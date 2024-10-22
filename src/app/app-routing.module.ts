@@ -6,12 +6,12 @@ import { BlogsComponent } from './blogs/blogs.component';
 import { BlogsDetailComponent } from './blogs/blogs-detail/blogs-detail.component';
 import { AuthGuard } from './authentication/auth.guard';
 
+import { AppComponent } from './app.component';
+
 const appRoutes: Route[] = [
   {
     path: '',
-
-    redirectTo: '/auth',
-    pathMatch: 'full',
+    component: AppComponent,
   },
   {
     path: 'auth',
